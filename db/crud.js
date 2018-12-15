@@ -21,7 +21,7 @@ const findAnimalById = id => {
 }
 
 const findAnimalByIdAndUpdate = (id, updatedAnimal) => {
-  return Animal.findByIdAndUpdate(id, updatedAnimal)
+  return Animal.findByIdAndUpdate(id, updatedAnimal, { new: true })
     .lean()
     .exec()
 }

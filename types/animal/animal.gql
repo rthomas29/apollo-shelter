@@ -1,5 +1,5 @@
 type Animal {
-  id: ID
+  id: ID!
   name: String!
   species: String!
   weight: Int
@@ -15,11 +15,21 @@ input AnimalInput {
   rescueDate: String
 }
 
+input UpdateAnimalInput {
+  name: String
+  species: String
+  weight: Int
+  color: String
+  rescueDate: String
+}
+
 type Query {
   animals: [Animal]!
+  animal(id: ID!): Animal!
 }
 
 type Mutation {
-  createAnimal(animal: AnimalInput): Animal!
+  createAnimal(input: AnimalInput): Animal!
   deleteAnimal(id: ID!): Animal!
+  updateAnimal(id: ID!, input: UpdateAnimalInput!): Animal!
 }
