@@ -11,8 +11,7 @@ const animal = new mongoose.Schema(
       required: true
     },
     weight: {
-      type: Number,
-      required: true
+      type: Number
     },
     color: {
       type: String,

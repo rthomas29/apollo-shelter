@@ -1,8 +1,13 @@
-const Animal = require('./models/animal')
+const Animal = require('../types/animal/animal.model')
 
 const createAnimal = animal => {
   return Animal.create(animal)
 }
+
+const findAllAnimals = () =>
+  Animal.find({})
+    .lean()
+    .exec()
 
 const findAnimalByField = (field, value) => {
   return Animal.find({ [field]: value })
@@ -29,6 +34,7 @@ const deleteAnimalById = id => {
 
 module.exports = {
   createAnimal,
+  findAllAnimals,
   findAnimalByField,
   findAnimalById,
   findAnimalByIdAndUpdate,
