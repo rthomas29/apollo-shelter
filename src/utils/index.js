@@ -1,9 +1,9 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
-const loadTypeSchema = type =>
+export const loadTypeSchema = type =>
   new Promise((resolve, reject) => {
-    const pathToSchema = path.join(process.cwd(), `types/${type}/${type}.gql`)
+    const pathToSchema = path.join(process.cwd(), `src/types/${type}/${type}.gql`)
     fs.readFile(pathToSchema, { encoding: 'utf-8' }, (err, schema) => {
       if (err) {
         return reject(err)
@@ -12,5 +12,3 @@ const loadTypeSchema = type =>
       resolve(schema)
     })
   })
-
-module.exports = loadTypeSchema

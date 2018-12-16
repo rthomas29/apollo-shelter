@@ -1,13 +1,13 @@
-const { ApolloServer } = require('apollo-server')
-const { merge } = require('lodash')
-const connect = require('./db/index')
-const config = require('./config')
-const loadTypeSchema = require('./utils')
-const animal = require('./types/animal/animal.resolvers')
+import { ApolloServer } from 'apollo-server'
+import { merge } from 'lodash'
+import connect from './db/index'
+import config from './config'
+import { loadTypeSchema } from './utils'
+import animal from './types/animal/animal.resolvers'
 
 const types = ['animal']
 
-const start = async () => {
+export const start = async () => {
   const rootSchema = `
     schema {
       query: Query,
@@ -26,5 +26,3 @@ const start = async () => {
 
   console.log(`🚀  GQL server ready at ${url}`)
 }
-
-module.exports = start
