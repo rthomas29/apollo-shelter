@@ -7,7 +7,7 @@ type Animal {
   rescueDate: String
 }
 
-input AnimalInput {
+input CreateAnimalInput {
   name: String!
   species: String!
   weight: Int
@@ -29,7 +29,7 @@ type Query {
 }
 
 type Mutation {
-  createAnimal(input: AnimalInput): Animal!
+  createAnimal(input: CreateAnimalInput): Animal!
   deleteAnimal(id: ID!): Animal!
   updateAnimal(id: ID!, input: UpdateAnimalInput!): Animal!
 }

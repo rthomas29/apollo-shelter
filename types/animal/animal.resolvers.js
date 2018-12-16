@@ -4,7 +4,7 @@ const animals = async () => await db.findAllAnimals()
 
 const animal = async (_, args) => await db.findAnimalById(args.id)
 
-const createAnimal = async (_, args) => await db.createAnimal(args.animal)
+const createAnimal = async (_, args) => await db.createAnimal(args.input)
 
 const updateAnimal = async (_, args) => await db.findAnimalByIdAndUpdate(args.id, args.input)
 
