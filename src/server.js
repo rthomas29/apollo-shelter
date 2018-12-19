@@ -4,8 +4,9 @@ import connect from './db/index'
 import config from './config'
 import { loadTypeSchema } from './utils'
 import animal from './types/animal/animal.resolvers'
+import user from './types/user/user.resolvers'
 
-const types = ['animal']
+const types = ['animal', 'user']
 
 export const start = async () => {
   const rootSchema = `
@@ -18,7 +19,7 @@ export const start = async () => {
 
   const server = new ApolloServer({
     typeDefs: [rootSchema, ...schemaTypes],
-    resolvers: merge({}, animal)
+    resolvers: merge({}, animal, user)
   })
 
   await connect(config.dbUrl)

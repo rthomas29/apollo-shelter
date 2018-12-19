@@ -1,4 +1,5 @@
 import Animal from '../types/animal/animal.model'
+import User from '../types/user/user.model'
 
 const db = {
   createAnimal: animal => {
@@ -28,6 +29,9 @@ const db = {
     return Animal.findByIdAndDelete(id)
       .lean()
       .exec()
+  },
+  createUser: user => {
+    return User.create(user)
   }
 }
 

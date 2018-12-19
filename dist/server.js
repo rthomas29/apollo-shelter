@@ -17,9 +17,11 @@ var _utils = require("./utils");
 
 var _animal = _interopRequireDefault(require("./types/animal/animal.resolvers"));
 
+var _user = _interopRequireDefault(require("./types/user/user.resolvers"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const types = ['animal'];
+const types = ['animal', 'user'];
 
 const start = async () => {
   const rootSchema = `
@@ -31,7 +33,7 @@ const start = async () => {
   const schemaTypes = await Promise.all(types.map(_utils.loadTypeSchema));
   const server = new _apolloServer.ApolloServer({
     typeDefs: [rootSchema, ...schemaTypes],
-    resolvers: (0, _lodash.merge)({}, _animal.default)
+    resolvers: (0, _lodash.merge)({}, _animal.default, _user.default)
   });
   await (0, _index.default)(_config.default.dbUrl);
   const {

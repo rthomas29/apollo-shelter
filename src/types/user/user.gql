@@ -1,0 +1,25 @@
+enum Role {
+  admin
+  employee
+}
+
+type User {
+  email: String!
+  password: String!
+  role: Role!
+}
+
+input NewUserInput {
+  email: String!
+  password: String!
+  role: Role!
+}
+
+extend type Query {
+  users: [User!]!
+  user(id: ID!): User
+}
+
+extend type Mutation {
+  createUser(input: NewUserInput!): User!
+}

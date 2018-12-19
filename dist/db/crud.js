@@ -7,6 +7,8 @@ exports.default = void 0;
 
 var _animal = _interopRequireDefault(require("../types/animal/animal.model"));
 
+var _user = _interopRequireDefault(require("../types/user/user.model"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const db = {
@@ -29,6 +31,9 @@ const db = {
   },
   deleteAnimalById: id => {
     return _animal.default.findByIdAndDelete(id).lean().exec();
+  },
+  createUser: user => {
+    return _user.default.create(user);
   }
 };
 var _default = db;
