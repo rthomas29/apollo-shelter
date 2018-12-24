@@ -1,4 +1,4 @@
-import { ApolloServer } from 'apollo-server-lambda'
+import { ApolloServer } from 'apollo-server'
 import { merge } from 'lodash'
 import connect from './db/index'
 import config from './config'
@@ -7,7 +7,7 @@ import animal from './types/animal/animal.resolvers'
 import user from './types/user/user.resolvers'
 
 const types = ['animal', 'user']
-let handler
+
 export const start = async () => {
   const rootSchema = `
     schema {
@@ -24,8 +24,5 @@ export const start = async () => {
 
   await connect(config.dbUrl)
   const { url } = await server.listen({ port: config.port })
-  handler = server.createHandler()
   console.log(`🚀  GQL server ready at ${url}`)
 }
-
-export const graphqlHandler = handler

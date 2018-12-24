@@ -15,12 +15,6 @@ exports.createUser = createUser;
 var _default = {
   Mutation: {
     createUser
-  },
-  User: {
-    email(user) {
-      return user.email;
-    }
-
   }
 };
 exports.default = _default;
