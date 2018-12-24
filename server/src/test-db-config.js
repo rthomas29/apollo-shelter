@@ -1,10 +1,10 @@
 // Setup file for test db
-
+import mongoose from 'mongoose'
 import cuid from 'cuid'
-import config from './src/config'
+import config from './config'
 import _ from 'lodash'
-import { User } from './src/types/user/user.model'
-import { Product } from './src/types/animal/animal.model'
+import User from './types/user/user.model'
+import Product from './types/animal/animal.model'
 
 const models = { User, Product }
 
