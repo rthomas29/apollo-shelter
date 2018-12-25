@@ -16,7 +16,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "apollo-server": "^2.3.1",
-    "apollo-server-lambda": "^2.3.1",
     "bcrypt": "^3.0.2",
     "graphql": "^14.0.2",
     "graphql-codegen-core": "^0.15.0",
@@ -30,7 +29,10 @@
     "@babel/plugin-proposal-class-properties": "^7.2.1",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "babel-plugin-import-graphql": "^2.6.2",
+    "cuid": "^2.1.4",
     "graphql-import": "^0.7.1",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
