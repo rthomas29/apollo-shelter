@@ -1,4 +1,4 @@
-import db from '../../db/crud'
+import db from '../../../db/crud'
 
 describe('animal model', () => {
   it('should create documents based on Animal model', async () => {

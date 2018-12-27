@@ -23,9 +23,6 @@ export default {
   Animal: {
     id(animal) {
       return animal._id.toString()
-    },
-    name(animal) {
-      return animal.name
     }
   }
 }
