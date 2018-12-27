@@ -30,7 +30,7 @@ describe('db crud operations', () => {
         updatedAt: new Date()
       }
       const animals = [animal1, animal2]
-      await Promise.all(animals.map(animal => db.createAnimal(animal)))
+      await Promise.all(animals.map(async animal => await db.createAnimal(animal)))
       const animalsFromDB = await db.findAllAnimals()
       expect(animalsFromDB[0].name).toEqual('sparky')
       expect(animalsFromDB[1].name).toEqual('kitty')
