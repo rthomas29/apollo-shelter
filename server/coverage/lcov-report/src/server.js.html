@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">45.45% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/15</span>
+        <span class='fraction'>5/11</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/1</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">45.45% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/15</span>
+        <span class='fraction'>5/11</span>
       </div>
     </div>
   </div>
@@ -71,53 +71,65 @@
 26
 27
 28
-29</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+29
+30
+31
+32
+33</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { ApolloServer } from 'apollo-server'</span>
-<span class="cstat-no" title="statement not covered" >import { merge } from 'lodash'</span>
-<span class="cstat-no" title="statement not covered" >import connect from './db/index'</span>
-<span class="cstat-no" title="statement not covered" >import config from './config'</span>
-<span class="cstat-no" title="statement not covered" >import { loadTypeSchema } from './utils'</span>
-<span class="cstat-no" title="statement not covered" >import animal from './types/animal/animal.resolvers'</span>
-<span class="cstat-no" title="statement not covered" >import user from './types/user/user.resolvers'</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ApolloServer } from 'apollo-server'
+import { merge } from 'lodash'
+import connect from './db'
+import config from './config'
+import { loadTypeSchema } from './utils'
+import animal from './types/animal/animal.resolvers'
+import user from './types/user/user.resolvers'
 &nbsp;
-const types = <span class="cstat-no" title="statement not covered" >['animal', 'user']</span>
+export const getSchemaTypes = async types =&gt; {
+  const schemas = await Promise.all(types.map(loadTypeSchema))
+  return schemas
+}
 &nbsp;
-export const start = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async () =&gt; </span>{</span>
-  const rootSchema = `<span class="cstat-no" title="statement not covered" ></span>
+export const types = ['animal', 'user']
+&nbsp;
+export const start = <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
+  const rootSchema = <span class="cstat-no" title="statement not covered" >`</span>
     schema {
       query: Query,
       mutation: Mutation
     }
   `
-  const schemaTypes = <span class="cstat-no" title="statement not covered" >await Promise.all(types.map(loadTypeSchema))</span>
-&nbsp;
+  const schemaTypes = <span class="cstat-no" title="statement not covered" >getSchemaTypes(types)</span>
   const server = <span class="cstat-no" title="statement not covered" >new ApolloServer({</span>
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, animal, user)
@@ -133,7 +145,7 @@ export const start = <span class="cstat-no" title="statement not covered" ><span
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Dec 26 2018 09:08:39 GMT-0500 (Eastern Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Dec 29 2018 15:37:51 GMT-0500 (Eastern Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

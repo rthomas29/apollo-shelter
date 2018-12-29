@@ -1,12 +1,17 @@
 import { ApolloServer } from 'apollo-server'
 import { merge } from 'lodash'
-import connect from './db/index'
+import connect from './db'
 import config from './config'
 import { loadTypeSchema } from './utils'
 import animal from './types/animal/animal.resolvers'
 import user from './types/user/user.resolvers'
 
-const types = ['animal', 'user']
+export const getSchemaTypes = async types => {
+  const schemas = await Promise.all(types.map(loadTypeSchema))
+  return schemas
+}
+
+export const types = ['animal', 'user']
 
 export const start = async () => {
   const rootSchema = `
@@ -15,8 +20,7 @@ export const start = async () => {
       mutation: Mutation
     }
   `
-  const schemaTypes = await Promise.all(types.map(loadTypeSchema))
-
+  const schemaTypes = getSchemaTypes(types)
   const server = new ApolloServer({
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, animal, user)
