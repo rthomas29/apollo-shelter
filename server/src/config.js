@@ -1,6 +1,9 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 const config = {
-  dbUrl: 'mongodb://localhost:27017/now',
-  port: 4000
+  dbUrl: process.env.MONGODB_URI,
+  port: process.env.PORT || 4000
 }
 
 export default config

@@ -20,13 +20,19 @@ export const start = async () => {
       mutation: Mutation
     }
   `
-  const schemaTypes = getSchemaTypes(types)
+  const schemaTypes = await getSchemaTypes(types)
+
   const server = new ApolloServer({
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, animal, user)
   })
 
-  await connect(config.dbUrl)
+  try {
+    await connect()
+  } catch (error) {
+    console.log(`Error connecting to mongoose: ${error}`)
+  }
+
   const { url } = await server.listen({ port: config.port })
   console.log(`🚀  GQL server ready at ${url}`)
 }

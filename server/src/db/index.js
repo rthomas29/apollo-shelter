@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
+import config from '../config'
 
 const connect = () => {
-  return mongoose.connect('mongodb://localhost:27017/now')
+  return mongoose.connect(config.dbUrl)
 }
 
 export default connect
