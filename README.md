@@ -1,8 +1,8 @@
 ## apollo-shelter
 
-### Full stack web app for animal shelter volunteers :dog:
+### :koala: Full stack web app for animal shelter volunteers :dog:
 
-### Tech :computer:
+### :computer: Tech
 
 - Frontend - React, Apollo Client
 - Backend - NodeJS, Apollo Server, MongoDB + Mongoose
