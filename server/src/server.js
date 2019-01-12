@@ -1,4 +1,4 @@
-import { ApolloServer } from 'apollo-server'
+import { ApolloServer } from 'apollo-server-express'
 import { merge } from 'lodash'
 import connect from './db'
 import config from './config'
@@ -13,12 +13,12 @@ export const getSchemaTypes = async types => {
 
 export const types = ['animal', 'user']
 
-export const start = async () => {
+export const start = async app => {
   const rootSchema = `
-    schema {
-      query: Query,
-      mutation: Mutation
-    }
+  schema {
+    query: Query,
+    mutation: Mutation
+  }
   `
   const schemaTypes = await getSchemaTypes(types)
 
@@ -33,6 +33,7 @@ export const start = async () => {
     console.log(`Error connecting to mongoose: ${error}`)
   }
 
-  const { url } = await server.listen({ port: config.port })
-  console.log(`🚀  GQL server ready at ${url}`)
+  server.applyMiddleware({ app })
+  await app.listen({ port: config.port })
+  console.log(`🚀  GQL server ready at ${config.port}${server.graphqlPath}`)
 }
