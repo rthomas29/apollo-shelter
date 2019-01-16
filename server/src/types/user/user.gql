@@ -9,10 +9,19 @@ type User {
   role: Role!
 }
 
+type Token {
+  token: String!
+}
+
 input NewUserInput {
   email: String!
   password: String!
   role: Role!
+}
+
+input RegisterUserInput {
+  email: String!
+  password: String!
 }
 
 extend type Query {
@@ -22,4 +31,5 @@ extend type Query {
 
 extend type Mutation {
   createUser(input: NewUserInput!): User!
+  registerUser(input: RegisterUserInput!): Token!
 }

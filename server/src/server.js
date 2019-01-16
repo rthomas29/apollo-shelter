@@ -24,7 +24,10 @@ export const start = async app => {
 
   const server = new ApolloServer({
     typeDefs: [rootSchema, ...schemaTypes],
-    resolvers: merge({}, animal, user)
+    resolvers: merge({}, animal, user),
+    context: async () => ({
+      secret: process.env.JWT_SECRET
+    })
   })
 
   try {
