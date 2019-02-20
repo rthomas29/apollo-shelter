@@ -1,0 +1,35 @@
+type Animal {
+  id: ID!
+  name: String!
+  species: String!
+  weight: Int
+  color: String!
+  rescueDate: String
+}
+
+input CreateAnimalInput {
+  name: String!
+  species: String!
+  weight: Int
+  color: String!
+  rescueDate: String
+}
+
+input UpdateAnimalInput {
+  name: String
+  species: String
+  weight: Int
+  color: String
+  rescueDate: String
+}
+
+type Query {
+  animals: [Animal]!
+  animal(id: ID!): Animal!
+}
+
+type Mutation {
+  createAnimal(input: CreateAnimalInput): Animal!
+  deleteAnimal(id: ID!): Animal!
+  updateAnimal(id: ID!, input: UpdateAnimalInput!): Animal!
+}

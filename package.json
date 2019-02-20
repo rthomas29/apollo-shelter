@@ -1,0 +1,48 @@
+{
+  "name": "node-graphql",
+  "main": "index.js",
+  "version": "1.0.0",
+  "keywords": ['node', 'express', 'graphql', 'apollo-server'],
+  "description": "GraphQL server with basic CRUD functionality",
+  "author": "Rakeem Thomas",
+  "license": "ISC",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "restart": "rimraf dist && npm run build && npm run start",
+    "dev": "nodemon --exec npm run restart",
+    "start": "node dist/index",
+    "test": "jest --watch src/"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "apollo-server": "^2.3.1",
+    "apollo-server-express": "^2.3.1",
+    "bcrypt": "^3.0.2",
+    "boom": "^7.3.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "graphql": "^14.0.2",
+    "graphql-codegen-core": "^0.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.3.16",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-import-graphql": "^2.6.2",
+    "cuid": "^2.1.4",
+    "graphql-import": "^0.7.1",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0",
+    "nodemon": "^1.18.8"
+  }
+}
