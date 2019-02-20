@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server-express'
 import { merge } from 'lodash'
 import connect from './db'
 import config from './config'
-import { loadTypeSchema } from './utils'
+import { loadTypeSchema, getUser } from './utils'
 import animal from './types/animal/animal.resolvers'
 import user from './types/user/user.resolvers'
 
@@ -25,9 +25,11 @@ export const start = async app => {
   const server = new ApolloServer({
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, animal, user),
-    context: async () => ({
-      secret: process.env.JWT_SECRET
-    })
+    context: async ({ req }) => {
+      const token = req.headers.authorization || ''
+      const user = await getUser(token)
+      return { secret: process.env.JWT_SECRET, user }
+    }
   })
 
   try {

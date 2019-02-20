@@ -2,7 +2,7 @@
   "name": "node-graphql",
   "main": "index.js",
   "version": "1.0.0",
-  "keywords": ['node', 'express', 'graphql', 'apollo-server'],
+  "keywords": ["node", "express", "graphql", "apollo-server"],
   "description": "GraphQL server with basic CRUD functionality",
   "author": "Rakeem Thomas",
   "license": "ISC",
