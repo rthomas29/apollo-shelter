@@ -6,18 +6,6 @@ const createToken = async (user, secret, expiresIn) => {
   return await jwt.sign({ id, email, username }, secret, { expiresIn })
 }
 
-export const createUser = async (_, args) => await db.createUser(args.input)
-
-export const registerUser = async (_, args, { secret }) => {
-  try {
-    const newUser = await db.createUser(args.input)
-    const token = { token: createToken(newUser, secret, '1 day') }
-    return token
-  } catch (error) {
-    return 'Error registering user'
-  }
-}
-
 export const signIn = async (_, args, { secret }) => {
   try {
     const user = await db.findUserByEmail(args.input)
@@ -29,8 +17,6 @@ export const signIn = async (_, args, { secret }) => {
 }
 export default {
   Mutation: {
-    createUser,
-    registerUser,
     signIn
   }
 }

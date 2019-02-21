@@ -44,3 +44,8 @@ export const getAuthenticatedUser = ({ email }) => {
     }
   })
 }
+
+export const createToken = async (user, secret, expiresIn) => {
+  const { id, email, username } = user
+  return await jwt.sign({ id, email, username }, secret, { expiresIn })
+}
