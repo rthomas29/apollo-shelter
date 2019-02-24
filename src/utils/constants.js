@@ -1,3 +1,4 @@
 export const ERRORS = {
-  UNAUTHORIZED: '401 Unauthorized'
+  UNAUTHORIZED: 'Only admins can complete this action',
+  NOT_LOGGED_IN: 'Please log in'
 }

@@ -1,22 +1,20 @@
-import jwt from 'jsonwebtoken'
-import db from '../../db/crud'
-
-const createToken = async (user, secret, expiresIn) => {
-  const { id, email, username } = user
-  return await jwt.sign({ id, email, username }, secret, { expiresIn })
-}
-
-export const signIn = async (_, args, { secret }) => {
+export const signIn = async (_, { input }, { token, db }) => {
   try {
-    const user = await db.findUserByEmail(args.input)
-    const token = { token: createToken(user, secret, '1 day') }
-    return token
+    const newUser = await db.findUserByEmail(input)
+    if (!newUser) throw new Error('Invalid user')
+    console.log(`User is authenticated!: ${JSON.stringify(newUser, null, 2)}`)
+    return { ...newUser, token }
   } catch (error) {
-    return 'Error signing in'
+    return `Error signing in: ${error.message}`
   }
 }
 export default {
   Mutation: {
     signIn
+  },
+  Token: {
+    token(token) {
+      return token
+    }
   }
 }

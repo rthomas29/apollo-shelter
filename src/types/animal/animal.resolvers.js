@@ -1,32 +1,31 @@
-import db from '../../db/crud'
 import { ERRORS } from '../../utils/constants'
 import { AuthenticationError } from 'apollo-server'
 
-export const animals = async (_, __, { user }) => {
-  if (!user) throw new AuthenticationError(ERRORS.UNAUTHORIZED)
+export const animals = async (_, __, { user, db }) => {
+  if (!user) throw new AuthenticationError(ERRORS.NOT_LOGGED_IN)
   const allAnimals = await db.findAllAnimals()
   return allAnimals
 }
 
-export const animal = async (_, { id }, { user }) => {
-  if (!user) throw new AuthenticationError(ERRORS.UNAUTHORIZED)
+export const animal = async (_, { id }, { user, db }) => {
+  if (!user) throw new AuthenticationError(ERRORS.NOT_LOGGED_IN)
   const fetchedAnimal = await db.findAnimalById(id)
   return fetchedAnimal
 }
 
-export const createAnimal = async (_, { input }, { user }) => {
-  if (!user) throw new AuthenticationError(ERRORS.UNAUTHORIZED)
+export const createAnimal = async (_, { input }, { user, db }) => {
+  if (!user || user.role !== 'admin') throw new AuthenticationError(ERRORS.UNAUTHORIZED)
   const createdAnimal = await db.createAnimal(input)
   return createdAnimal
 }
 
-export const updateAnimal = async (_, { id, input }, { user }) => {
-  if (!user) throw new AuthenticationError(ERRORS.UNAUTHORIZED)
+export const updateAnimal = async (_, { id, input }, { user, db }) => {
+  if (!user || user.role !== 'admin') throw new AuthenticationError(ERRORS.UNAUTHORIZED)
   const updatedAnimal = await db.findAnimalByIdAndUpdate(id, input)
   return updatedAnimal
 }
 
-export const deleteAnimal = async (_, { id }, { user }) => {
+export const deleteAnimal = async (_, { id }, { user, db }) => {
   if (!user || user.role !== 'admin') throw new AuthenticationError(ERRORS.UNAUTHORIZED)
   const deletedAnimal = await db.deleteAnimalById(id)
   return deletedAnimal

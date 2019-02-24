@@ -5,6 +5,8 @@ import config from './config'
 import { loadTypeSchema, getUser } from './utils'
 import animal from './types/animal/animal.resolvers'
 import user from './types/user/user.resolvers'
+import db from './db/crud'
+import utils from './utils'
 
 export const getSchemaTypes = async types => {
   const schemas = await Promise.all(types.map(loadTypeSchema))
@@ -26,9 +28,9 @@ export const start = async app => {
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, animal, user),
     context: async ({ req }) => {
-      const token = req.headers.authorization || ''
+      const token = req.headers['authorization'] || ''
       const user = await getUser(token)
-      return { secret: process.env.JWT_SECRET, user }
+      return { secret: process.env.JWT_SECRET, user, token, db }
     }
   })
 

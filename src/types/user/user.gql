@@ -7,6 +7,9 @@ type User {
   email: String!
   password: String!
   role: Role!
+  createdAt: String
+  updatedAt: String
+  token: String
 }
 
 type Token {
@@ -30,7 +33,5 @@ extend type Query {
 }
 
 extend type Mutation {
-  createUser(input: NewUserInput!): User!
-  registerUser(input: AuthUserInput!): Token!
-  signIn(input: AuthUserInput!): Token!
+  signIn(input: AuthUserInput!): User!
 }
