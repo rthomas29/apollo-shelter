@@ -44,6 +44,13 @@ export default {
   Animal: {
     id(animal) {
       return animal._id.toString()
+    },
+    name(animal, args) {
+      return args.case === 'uppercase' ? animal.name.toUpperCase() : animal.name.toLowerCase()
+    },
+    weight(animal, args) {
+      if (args.weightType === 'lbs') return `${animal.weight} lbs`
+      if (args.weightType === 'kgs') return `${animal.weight} kgs`
     }
   }
 }
