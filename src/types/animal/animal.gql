@@ -17,6 +17,11 @@ type Animal {
   rescueDate: String
 }
 
+input AnimalQueryInput {
+  case: NameCase = lowercase
+  weightType: WeightType = lbs
+}
+
 input CreateAnimalInput {
   name: String!
   species: String!
