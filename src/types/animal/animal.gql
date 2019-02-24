@@ -1,8 +1,18 @@
+enum NameCase {
+  uppercase
+  lowercase
+}
+
+enum WeightType {
+  lbs
+  kgs
+}
+
 type Animal {
   id: ID!
-  name: String!
+  name(case: NameCase = lowercase): String!
+  weight(weightType: WeightType = lbs): String!
   species: String!
-  weight: Int
   color: String!
   rescueDate: String
 }
