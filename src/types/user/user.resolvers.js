@@ -1,20 +1,31 @@
-export const signIn = async (_, { input }, { token, db }) => {
+import { UserInputError, AuthenticationError } from 'apollo-server'
+import { createApiKey } from '../../utils'
+
+export const signIn = async (_, { input }, { db, user }) => {
   try {
-    const newUser = await db.findUserByEmail(input)
-    if (!newUser) throw new Error('Invalid user')
-    console.log(`User is authenticated!: ${JSON.stringify(newUser, null, 2)}`)
-    return { ...newUser, token }
+    if (!input) throw new UserInputError('Missing parameters')
+    const user = await db.findUserByEmail({ email: input.email })
+    console.log(`User is authenticated!: ${JSON.stringify(user, null, 2)}`)
+    return user
   } catch (error) {
-    return `Error signing in: ${error.message}`
+    throw new Error(error)
+  }
+}
+
+export const signUp = async (_, { input }, { db }) => {
+  try {
+    if (!input) throw new UserInputError('Missing parameters')
+    const apiKey = createApiKey()
+    const userPayload = { ...input, apiKey }
+    const user = await db.createUser(userPayload)
+    return user
+  } catch (error) {
+    throw new Error(error.message)
   }
 }
 export default {
   Mutation: {
-    signIn
-  },
-  Token: {
-    token(token) {
-      return token
-    }
+    signIn,
+    signUp
   }
 }

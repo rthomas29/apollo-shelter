@@ -1,6 +1,7 @@
 enum Role {
   admin
   employee
+  guest
 }
 
 type User {
@@ -9,20 +10,16 @@ type User {
   role: Role!
   createdAt: String
   updatedAt: String
-  token: String
+  apiKey: String
 }
 
-type Token {
-  token: String!
-}
-
-input NewUserInput {
+input SignUpInput {
   email: String!
   password: String!
   role: Role!
 }
 
-input AuthUserInput {
+input SignInInput {
   email: String!
   password: String!
 }
@@ -30,8 +27,9 @@ input AuthUserInput {
 extend type Query {
   users: [User!]!
   user(id: ID!): User
-}
 
+}
 extend type Mutation {
-  signIn(input: AuthUserInput!): User!
+  signUp(input: SignUpInput!): User!
+  signIn(input: SignInInput!): User!
 }

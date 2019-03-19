@@ -7,7 +7,8 @@ export const UserSchema = mongoose.Schema(
   {
     email: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     password: {
       type: String,
@@ -18,12 +19,17 @@ export const UserSchema = mongoose.Schema(
       enum: Object.keys(roles),
       required: true,
       default: roles.admin
+    },
+    apiKey: {
+      type: String,
+      required: true,
+      unique: true
     }
   },
   { timestamps: true }
 )
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
   if (!this.isModified('password')) {
     next()
   }

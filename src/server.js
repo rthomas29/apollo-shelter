@@ -1,12 +1,11 @@
-import { ApolloServer } from 'apollo-server-express'
-import { merge } from 'lodash'
 import connect from './db'
 import config from './config'
-import { loadTypeSchema, getUser } from './utils'
+import { ApolloServer } from 'apollo-server-express'
+import { merge } from 'lodash'
+import { loadTypeSchema, authenticateUser } from './utils'
 import animal from './types/animal/animal.resolvers'
 import user from './types/user/user.resolvers'
 import db from './db/crud'
-import utils from './utils'
 
 export const getSchemaTypes = async types => {
   const schemas = await Promise.all(types.map(loadTypeSchema))
@@ -28,16 +27,15 @@ export const start = async app => {
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, animal, user),
     context: async ({ req }) => {
-      const token = req.headers['authorization'] || ''
-      const user = await getUser(token)
-      return { secret: process.env.JWT_SECRET, user, token, db }
+      const user = await authenticateUser(req)
+      return { user, db }
     }
   })
 
   try {
     await connect()
   } catch (error) {
-    console.log(`Error connecting to mongoose: ${error}`)
+    throw new Error(`Error connecting to mongoose: ${error}`)
   }
 
   server.applyMiddleware({ app })

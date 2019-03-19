@@ -51,6 +51,7 @@ export default {
     weight(animal, args) {
       if (args.weightType === 'lbs') return `${animal.weight} lbs`
       if (args.weightType === 'kgs') return `${animal.weight} kgs`
+      
     }
   }
 }
