@@ -1,4 +1,4 @@
-GraphQL API for an animal shelter app
+GraphQL API for an animal shelter app 🐶
 
-## Tech
+## Tools 🛠
 GraphQL (Apollo Server), MongoDB (Mongoose), NodeJS
