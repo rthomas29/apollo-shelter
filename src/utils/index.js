@@ -13,32 +13,18 @@ export const loadTypeSchema = type =>
       if (err) {
         return reject(err)
       }
-
       resolve(schema)
     })
   })
 
-export const getUser = token => {
-  return new Promise(async (res, rej) => {
-    try {
-      let user = null
-      console.log('...token', token)
-      if (token) {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        console.log('decoded', decoded)
-        user = await getAuthenticatedUser(decoded)
-        res(user)
-      }
-    } catch (error) {
-      console.log('error', error)
-      rej(error)
-    }
-  })
-}
-
 export const createToken = async (user, secret, expiresIn) => {
   const { id, email, username } = user
   return await jwt.sign({ id, email, username }, secret, { expiresIn })
+}
+
+export const getSchemaTypes = async (types = ['animal', 'user']) => {
+  const schemas = await Promise.all(types.map(loadTypeSchema))
+  return schemas
 }
 
 export const createApiKey = () => cuid()
@@ -48,10 +34,7 @@ export const authenticateUser = async (req) => {
   const apiKey = req.headers.authorization
   if (!apiKey) return null
 
+  console.log('apiKey', apiKey)
   // find user in db based on apiKey
-  const user = await User.findOne({ apiKey })
-    .select('-password')
-    .lean()
-    .exec()
-  return user
+  return db.findUserByApiKey(apiKey)
 }

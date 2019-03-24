@@ -4,6 +4,8 @@ import User from '../types/user/user.model'
 const db = {
   createAnimal: animal => Animal.create(animal),
 
+  createUser: user => User.create(user),
+
   findAllAnimals: () =>
     Animal.find({})
       .lean()
@@ -29,10 +31,10 @@ const db = {
       .lean()
       .exec(),
 
-  createUser: user => User.create(user),
 
   findUserByEmail: ({ email }) =>
     User.findOne({ email })
+      .select('-password')
       .lean()
       .exec(),
 
