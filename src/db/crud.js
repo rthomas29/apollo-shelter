@@ -34,6 +34,12 @@ const db = {
   findUserByEmail: ({ email }) =>
     User.findOne({ email })
       .lean()
+      .exec(),
+
+  findUserByApiKey: (apiKey) =>
+    User.findOne({ apiKey })
+      .select('-password')
+      .lean()
       .exec()
 }
 
